@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="74.752" tests="15" skipped="0" failures="0" errors="0">
+<testcase classname="User Registration" name="Register user with required fields" time="6.475">
+<system-out><![CDATA[
+Given Register Page should be opened........................................passed
+When Enter Data in all fields and click continue............................passed
+Then Account should be created..............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="User Login" name="Login user with required fields" time="4.517">
+<system-out><![CDATA[
+Given Login Page should be opened...........................................passed
+When Enter email and password and then click login button...................passed
+Then login successful.......................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Searching Functionality" name="check for valid search" time="2.792">
+<system-out><![CDATA[
+Given home page should be open in browser...................................passed
+When click on search button and perform search..............................passed
+Then results should be shown................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Sort By Price Functionality" name="verifying sort by price" time="3.376">
+<system-out><![CDATA[
+Given search page should be open in browser.................................passed
+When click on search button and perform search and click on sort by price low to high.passed
+Then sort results should be shown...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate add to cart functionality" name="Check for add to cart functionality" time="5.394">
+<system-out><![CDATA[
+Given home page should be open in  browser for cart.........................passed
+When click on search button and search product and then add to cart.........passed
+Then product should add to cart.............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate remove from cart functionality" name="Check for remove from cart functionality" time="7.822">
+<system-out><![CDATA[
+Given home page should be open in browser for remove cart...................passed
+When click on cart remove product from cart.................................passed
+Then product should removed from cart.......................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Wishlist Functionality" name="verifying wishlist functionality" time="2.1">
+<system-out><![CDATA[
+Given home page should be open in browser for wishlist......................passed
+When click on wishlist button...............................................passed
+Then results should be shown for wishlist...................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Checkout Functionality" name="verifying checkout functionality" time="2.57">
+<system-out><![CDATA[
+Given home page should be open in browser for checkout......................passed
+When click on checkout cart button..........................................passed
+Then results should be shown for checkout...................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate add address functionality" name="Check for add address functionality" time="6.869">
+<system-out><![CDATA[
+Given home page should be open in  browser for address......................passed
+When click on myaccount and again click myaccount and click modify address and click add addresses and enter fields and save.passed
+Then address should be added................................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate change password functionality" name="Check for updating password functionality" time="4.738">
+<system-out><![CDATA[
+Given home page should be open in browser for password change...............passed
+When click on my account and again click on myaccount and click change password and enter fields and click save.passed
+Then password should be updated.............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Logout Functionality" name="verifying logout functionality" time="4.491">
+<system-out><![CDATA[
+Given home page should be open in browser for logout........................passed
+When click on myaccount and click on logout button..........................passed
+Then user should be logged out..............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page" name="Check for valid and invalid credentials - Example #1.1" time="6.234">
+<system-out><![CDATA[
+Given login page should be open in default browser..........................passed
+When click on username button and enter muktha and Devendra@0018 and click signin button.passed
+Then login successfully and open home page..................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page" name="Check for valid and invalid credentials - Example #1.2" time="5.897">
+<system-out><![CDATA[
+Given login page should be open in default browser..........................passed
+When click on username button and enter devendra and 676904 and click signin button.passed
+Then login successfully and open home page..................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page" name="Check for valid and invalid credentials - Example #1.3" time="5.196">
+<system-out><![CDATA[
+Given login page should be open in default browser..........................passed
+When click on username button and enter dvd34 and 455354 and click signin button.passed
+Then login successfully and open home page..................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page" name="Check for valid and invalid credentials - Example #1.4" time="5.927">
+<system-out><![CDATA[
+Given login page should be open in default browser..........................passed
+When click on username button and enter devendra7981676@gmail.com and deva and click signin button.passed
+Then login successfully and open home page..................................passed
+]]></system-out>
+</testcase>
+</testsuite>

@@ -1,0 +1,14 @@
+Step_Definitions\Checkout.class
+Step_Definitions\LoginDDT.class
+Step_Definitions\Wishlist.class
+Step_Definitions\TestRunner.class
+Step_Definitions\Login.class
+Step_Definitions\ChangePassword.class
+Step_Definitions\AddToCart.class
+Step_Definitions\RemoveFromCart.class
+Step_Definitions\Register.class
+Step_Definitions\Logout.class
+Step_Definitions\Search.class
+Step_Definitions\SortByPrice.class
+Step_Definitions\AddAddress.class
+Step_Definitions\OpenCartPOM.class
