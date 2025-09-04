@@ -1,6 +1,7 @@
 package Step_Definitions;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +22,9 @@ public class Search {
 	@When("click on search button and perform search")
 	public void click_on_search_button_and_perform_search() {
 		OpenCartPOM ocp = new OpenCartPOM(driver);
-		ocp.search("macbook");
+		String path = System.getProperty("user.dir") + "/src/test/resources/testData/excelData.xlsx";
+		Map<String, String> searchData = ExcelReader.readKeyValueData(path, "expectedData");
+		ocp.search(searchData.get("searchvalue"));
 	}
 
 	@Then("results should be shown")

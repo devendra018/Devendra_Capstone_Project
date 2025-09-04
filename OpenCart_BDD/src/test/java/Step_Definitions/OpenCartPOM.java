@@ -1,6 +1,7 @@
 package Step_Definitions;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class OpenCartPOM {
 	WebDriver driver;
 	WebDriverWait wait;
+	
 	
 	By myAccountButton = By.xpath("//*[@title='My Account']");
 	By registerButton = By.xpath("//*[text()='Register']");
@@ -73,22 +75,26 @@ public class OpenCartPOM {
 	By stateSelect = By.id("input-zone");
 	By deleteAddress = By.xpath("//*[text()='Delete']");
 	
-	
+	String path = System.getProperty("user.dir") + "/src/test/resources/testData/excelData.xlsx";
+	Map<String, String> loginData = ExcelReader.readKeyValueData(path, "loginData");
+	String email = loginData.get("email");
+	String pass = loginData.get("password");
+	Map<String, String> searchData = ExcelReader.readKeyValueData(path, "expectedData");
 	
 	public OpenCartPOM(WebDriver driver) {
 		this.driver = driver;
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	}
 	
-	public void register(String FirstName, String LastName, String Email, String Telephone, String Password, String ConfirmPassword) {
+	public void register(Map<String, String> registerData) {
 		driver.findElement(myAccountButton).click();
 		driver.findElement(registerButton).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField)).sendKeys(FirstName);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameField)).sendKeys(LastName);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).sendKeys(Email);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(telephoneField)).sendKeys(Telephone);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(Password);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPasswordField)).sendKeys(ConfirmPassword);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField)).sendKeys(registerData.get("firstname"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameField)).sendKeys(registerData.get("lastname"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(emailField)).sendKeys(registerData.get("email"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(telephoneField)).sendKeys(registerData.get("phone"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(registerData.get("password"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPasswordField)).sendKeys(registerData.get("confirmpassword"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(privacyPolicyCheckbox)).click();
 		driver.findElement(continueButton).click();
 		home();
@@ -109,17 +115,17 @@ public class OpenCartPOM {
 		driver.findElement(searchButton).click();
 	}
 	
-	public void addToCart(String quantity) {
-		login("devendra7981676@gmail.com", "deva");
-		search("macbook");
+	public void addToCart() {
+		login(email, pass);
+		search(searchData.get("searchvalue"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(imgButton)).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(productQuantityButton)).clear();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(productQuantityButton)).sendKeys(quantity);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(productQuantityButton)).sendKeys(searchData.get("quantity"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(productAddToCartButton)).click();
 	}
 	
 	public void removeFromCart() {
-		login("devendra7981676@gmail.com", "deva");
+		login(email, pass);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(shoppingCartButton)).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(productRemoveButtom)).click();
 	}
@@ -129,44 +135,46 @@ public class OpenCartPOM {
 	}
 	
 	public void checkout() {
+		addToCart();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutButton)).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(productCheckoutButton)).click();
 	}
 	
-	public void addAddress(String FirstName, String LastName, String Address, String City,String PostCode, String Country, String State) {
-		login("devendra7981676@gmail.com", "deva");
+	public void addAddress(Map<String, String> expectedData) {
+		login(email, pass);
 		driver.findElement(myAccountButton).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(accountInfoButton)).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(modifyAddress)).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(addAddressButton)).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField)).sendKeys(FirstName);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameField)).sendKeys(LastName);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(addressField)).sendKeys(Address);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(cityField)).sendKeys(City);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(postCodeField)).sendKeys(PostCode);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField)).sendKeys(expectedData.get("firstname"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(lastNameField)).sendKeys(expectedData.get("lastname"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(addressField)).sendKeys(expectedData.get("address"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(cityField)).sendKeys(expectedData.get("city"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(postCodeField)).sendKeys(expectedData.get("postalcode"));
 		WebElement country = driver.findElement(countrySelect);
 		Select sel = new Select(country);
-		sel.selectByVisibleText(Country);
+		sel.selectByVisibleText(expectedData.get("country"));
 		WebElement state = wait.until(ExpectedConditions.visibilityOfElementLocated(stateSelect));
 		Select sel1 = new Select(state);
-		sel1.selectByVisibleText(State);
+		sel1.selectByVisibleText(expectedData.get("state"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton)).click();
 	}
 	
 	
 	
-	public void changePassword(String Password, String ConfirmPassWord) {
-		login("devendra7981676@gmail.com", "deva");
+	public void changePassword(Map<String, String> expectedData) {
+		login(email, pass);
 		driver.findElement(myAccountButton).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(accountInfoButton)).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(changePassword)).click();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(Password);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPasswordField)).sendKeys(ConfirmPassWord);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(expectedData.get("password"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(confirmPasswordField)).sendKeys(expectedData.get("confirmpass"));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton)).click();
 	}
 	
 	
 	public void sortBy() {
-		search("mac");
+		search(searchData.get("product"));
 		WebElement sort = driver.findElement(sortButton);
 		Select sel = new Select(sort);
 		sel.selectByVisibleText("Price (Low > High)");
@@ -174,7 +182,7 @@ public class OpenCartPOM {
 	
 	
 	public void logout() {
-		login("devendra7981676@gmail.com", "deva");
+		login(email, pass);
 		home();
 		driver.findElement(myAccountButton).click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(logoutButton)).click();
@@ -183,4 +191,6 @@ public class OpenCartPOM {
 	public void home() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(homeIcon)).click();
 	}
+	
+	
 }

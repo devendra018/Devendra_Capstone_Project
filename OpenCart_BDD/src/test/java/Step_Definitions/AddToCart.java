@@ -24,7 +24,7 @@ public class AddToCart {
 	@When("click on search button and search product and then add to cart")
 	public void click_on_search_button_and_search_product_and_then_add_to_cart() {
 		OpenCartPOM ocp = new OpenCartPOM(driver);
-		ocp.addToCart("2");
+		ocp.addToCart();
 	}
 
 	@Then("product should add to cart")

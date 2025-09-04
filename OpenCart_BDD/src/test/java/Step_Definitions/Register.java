@@ -1,6 +1,7 @@
 package Step_Definitions;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +25,9 @@ public class Register {
 	@When("Enter Data in all fields and click continue")
 	public void enter_data_in_all_fields_and_click_continue() {
 		OpenCartPOM ocp = new OpenCartPOM(driver);
-		ocp.register("Devendra", "K", "devendra7981676@gmail.com", "1234567890", "deva", "deva");
+		String path = System.getProperty("user.dir") + "/src/test/resources/testData/excelData.xlsx";
+		Map<String, String> registerData = ExcelReader.readKeyValueData(path, "registerData");
+		ocp.register(registerData);
 	}
 
 	@Then("Account should be created")

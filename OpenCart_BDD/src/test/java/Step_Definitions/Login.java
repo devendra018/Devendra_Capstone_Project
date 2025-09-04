@@ -17,10 +17,10 @@ public class Login {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 	}
 
-	@When("Enter email and password and then click login button")
-	public void enter_email_and_password_and_then_click_login_button() {
+	@When("Enter (.*) and (.*) and then click login button$")
+	public void enter_email_and_password_and_then_click_login_button(String email1, String password1) {
 		OpenCartPOM ocp = new OpenCartPOM(driver);
-		ocp.login("devendra7981676@gmail.com", "deva");
+		ocp.login(email1, password1);
 	}
 
 	@Then("login successful")

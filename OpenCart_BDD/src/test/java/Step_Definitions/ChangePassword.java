@@ -1,6 +1,7 @@
 package Step_Definitions;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +25,9 @@ public class ChangePassword {
 	@When("click on my account and again click on myaccount and click change password and enter fields and click save")
 	public void click_on_my_account_and_again_click_on_myaccount_and_click_change_password_and_enter_fields_and_click_save() {
 		OpenCartPOM ocp = new OpenCartPOM(driver);
-		ocp.changePassword("deva", "deva");
+		String path = System.getProperty("user.dir") + "/src/test/resources/testData/excelData.xlsx";
+		Map<String, String> expectedData = ExcelReader.readKeyValueData(path, "expectedData");
+		ocp.changePassword(expectedData);
 	}
 
 	@Then("password should be updated")

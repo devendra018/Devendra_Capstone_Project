@@ -1,6 +1,7 @@
 package Step_Definitions;
 
 import java.time.Duration;
+import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,7 +25,9 @@ public class AddAddress {
 	@When("click on myaccount and again click myaccount and click modify address and click add addresses and enter fields and save")
 	public void click_on_myaccount_and_again_click_myaccount_and_click_modify_address_and_click_add_addresses_and_enter_fields_and_save() {
 		OpenCartPOM ocp = new OpenCartPOM(driver);
-		ocp.addAddress("Devendra", "K", "Marathahalli", "Bengaluru", "560032", "India", "Karnataka");
+		String path = System.getProperty("user.dir") + "/src/test/resources/testData/excelData.xlsx";
+		Map<String, String> expectedData = ExcelReader.readKeyValueData(path, "expectedData");
+		ocp.addAddress(expectedData);
 	}
 
 	@Then("address should be added")
