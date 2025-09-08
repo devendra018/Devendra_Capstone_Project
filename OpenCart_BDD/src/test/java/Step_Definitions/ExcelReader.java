@@ -45,29 +45,5 @@ public class ExcelReader {
 
         return dataMap;
     }
-
-    private static String getCellValueAsString(Cell cell) {
-        switch (cell.getCellType()) {
-            case STRING:
-                return cell.getStringCellValue().trim();
-            case NUMERIC:
-                double numericValue = cell.getNumericCellValue();
-                if (numericValue == Math.floor(numericValue)) {
-                    return String.valueOf((long) numericValue);
-                } else {
-                    return String.valueOf(numericValue);
-                }
-            case BOOLEAN:
-                return String.valueOf(cell.getBooleanCellValue());
-
-            case FORMULA:
-                return cell.getCellFormula();
-
-            case BLANK:
-                return "";
-
-            default:
-                return cell.toString().trim();
-        }
     }
 }
